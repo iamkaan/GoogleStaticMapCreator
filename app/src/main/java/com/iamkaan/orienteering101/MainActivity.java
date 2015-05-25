@@ -2,7 +2,6 @@ package com.iamkaan.orienteering101;
 
 import android.graphics.Point;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -17,8 +16,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     int width;
     ImageView map;
-    LocationManager locationManager;
-    private GoogleApiClient googleApiClient;
+    GoogleApiClient googleApiClient;
+    GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
 
         map = (ImageView) findViewById(R.id.map);
-
         width = getScreenWidth();
 
         buildGoogleApiClient();
@@ -67,18 +65,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 googleApiClient);
 
-        MapCreator mapCreator = new MapCreator()
-                .setCenter(lastLocation.getLatitude(), lastLocation.getLongitude())
-                .setSize(1000, 1000)
-                .setZoom(17);
+        gameManager = new GameManager(lastLocation.getLatitude(), lastLocation.getLongitude());
+        gameManager.setMiniMapSize(1000, 1000);
+        gameManager.setZoom(17);
 
-        mapCreator.addMarker(new Marker()
+        gameManager.addMarker(new Marker()
                 .setIconURL("http://www2.psd100.com/icon/2013/08/2701/Running-man-icon-0827112812.png")
                 .setLocation(lastLocation.getLatitude(), lastLocation.getLongitude()));
 
-        mapCreator.addMarker(new Marker()
+        gameManager.addMarker(new Marker()
                 .setIconURL("http://hydra-media.cursecdn.com/neverwinter.gamepedia.com/9/93/Icon_Inventory_Runestone_Serene_T1_01.png?version=7226ca2069eec585bf3a4d3a88879631")
                 .setLocation(39.779014, 30.517056));
+
+        MapCreator mapCreator = new MapCreator(gameManager)
+                .setCenter(lastLocation.getLatitude(), lastLocation.getLongitude());
 
         String url = mapCreator
                 .create();
