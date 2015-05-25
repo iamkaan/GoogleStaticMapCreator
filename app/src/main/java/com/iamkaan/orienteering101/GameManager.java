@@ -66,17 +66,17 @@ public class GameManager {
         double cornerBottomLeftLat = centerLat - 0.0075;
         double cornerBottomLeftLng = centerLng - 0.0075;
         borders = "&path=color:0x00000000|weight:5|fillcolor:0xcc000077|" +
-                String.valueOf(cornerTopLeftLat) + "" + String.valueOf(cornerTopLeftLng) +
-                String.valueOf(cornerBottomLeftLat) + "" + String.valueOf(cornerBottomLeftLng) +
-                String.valueOf(cornerBottomRightLat) + "" + String.valueOf(cornerBottomRightLng) +
-                String.valueOf(cornerTopRightLat) + "" + String.valueOf(cornerTopRightLng) +
-                String.valueOf(cornerTopRightLat + 0.1) + "" + String.valueOf(cornerTopRightLng + 0.1) +
-                String.valueOf(cornerBottomRightLat - 0.1) + "" + String.valueOf(cornerBottomRightLng + 0.1) +
-                String.valueOf(cornerBottomLeftLat - 0.1) + "" + String.valueOf(cornerBottomLeftLng - 0.1) +
-                String.valueOf(cornerTopLeftLat + 0.1) + "" + String.valueOf(cornerTopLeftLng - 0.1) +
-                String.valueOf(cornerTopRightLat + 0.1) + "" + String.valueOf(cornerTopRightLng + 0.1) +
-                String.valueOf(cornerTopRightLat) + "" + String.valueOf(cornerTopRightLng) +
-                String.valueOf(cornerTopLeftLat) + "" + String.valueOf(cornerTopLeftLng);
+                String.valueOf(cornerTopLeftLat) + "," + String.valueOf(cornerTopLeftLng) + "|" +
+                String.valueOf(cornerBottomLeftLat) + "," + String.valueOf(cornerBottomLeftLng) + "|" +
+                String.valueOf(cornerBottomRightLat) + "," + String.valueOf(cornerBottomRightLng) + "|" +
+                String.valueOf(cornerTopRightLat) + "," + String.valueOf(cornerTopRightLng) + "|" +
+                String.valueOf(cornerTopRightLat + 0.1) + "," + String.valueOf(cornerTopRightLng + 0.1) + "|" +
+                String.valueOf(cornerBottomRightLat - 0.1) + "," + String.valueOf(cornerBottomRightLng + 0.1) + "|" +
+                String.valueOf(cornerBottomLeftLat - 0.1) + "," + String.valueOf(cornerBottomLeftLng - 0.1) + "|" +
+                String.valueOf(cornerTopLeftLat + 0.1) + "," + String.valueOf(cornerTopLeftLng - 0.1) + "|" +
+                String.valueOf(cornerTopRightLat + 0.1) + "," + String.valueOf(cornerTopRightLng + 0.1) + "|" +
+                String.valueOf(cornerTopRightLat) + "," + String.valueOf(cornerTopRightLng) + "|" +
+                String.valueOf(cornerTopLeftLat) + "," + String.valueOf(cornerTopLeftLng);
     }
 
     private void setStyle() {
