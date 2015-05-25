@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     ImageView map;
     GoogleApiClient googleApiClient;
     GameManager gameManager;
+    double gameCenterLat, gameCenterLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         map = (ImageView) findViewById(R.id.map);
         width = getScreenWidth();
+
+        /**
+         * oyunda bi tane game manager olucak, genel ayarları içericek.
+         */
+        gameManager = new GameManager(gameCenterLat, gameCenterLng);
+        gameManager.setMiniMapSize(1000, 1000);
+        gameManager.setZoom(16);
 
         buildGoogleApiClient();
     }
@@ -65,10 +73,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 googleApiClient);
 
-        gameManager = new GameManager(lastLocation.getLatitude(), lastLocation.getLongitude());
-        gameManager.setMiniMapSize(1000, 1000);
-        gameManager.setZoom(17);
-
         gameManager.addMarker(new Marker()
                 .setIconURL("http://www2.psd100.com/icon/2013/08/2701/Running-man-icon-0827112812.png")
                 .setLocation(lastLocation.getLatitude(), lastLocation.getLongitude()));
@@ -77,8 +81,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .setIconURL("http://hydra-media.cursecdn.com/neverwinter.gamepedia.com/9/93/Icon_Inventory_Runestone_Serene_T1_01.png?version=7226ca2069eec585bf3a4d3a88879631")
                 .setLocation(39.779014, 30.517056));
 
-        MapCreator mapCreator = new MapCreator(gameManager)
-                .setCenter(lastLocation.getLatitude(), lastLocation.getLongitude());
+        MapCreator mapCreator = new MapCreator(gameManager);
+        /**
+         * burda center belirliyoruz çünkü oyunun (büyük haritanın) merkeziyle
+         * zoom yapılmış haritanın merkezi aynı olmiycak her zaman.
+         */
+        mapCreator.setCenter(lastLocation.getLatitude(), lastLocation.getLongitude());
 
         String url = mapCreator
                 .create();
@@ -95,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnectionSuspended(int i) {
-        System.out.println("ahE");
+        System.out.println("ahE | onConnectionSuspended");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        System.out.println("ahE");
+        System.out.println("ahE | onConnectionFailed");
     }
 }

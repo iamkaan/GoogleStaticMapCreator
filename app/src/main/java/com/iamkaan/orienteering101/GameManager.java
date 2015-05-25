@@ -52,6 +52,10 @@ public class GameManager {
         this.miniMapSize = "size=" + height + "x" + width;
     }
 
+    /**
+     * burda oyunun başlama merkezine göre (bu merkez değişmiycek büyük haritanın merkezi olucak)
+     * yaklaşık 750şer metre sağa sola kayarak kırmızı çizgiyi çiziyorum.
+     */
     private void drawBorders(double centerLat, double centerLng) {
         double cornerTopLeftLat = centerLat + 0.0075;
         double cornerTopLeftLng = centerLng - 0.0075;
